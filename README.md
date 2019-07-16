@@ -1,0 +1,1 @@
+Full application with API, GUI and CLI using just NodeJs.
