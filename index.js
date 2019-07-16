@@ -15,11 +15,15 @@ const server = http.createServer((req, res) => {
     // Get request HTTP Method
     const method = req.method.toLowerCase()
 
+    // Get Query String as object
+    const queryStringObj = parsedUrl.query
+
     // Send the response
     res.end('Hello World!')
 
     // Log the request path
     console.log(`Request Path: ${trimmedPath} using Method: ${method}`)
+    console.log(queryStringObj)
 })
 
 // Start the Server, listen on Port 3000
