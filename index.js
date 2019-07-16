@@ -1,6 +1,7 @@
 // Dependencies - All ready available on Node
 const http = require('http')
-const url = require('url') // Module to work easily with urls, making parsings an other cool stuffs.
+const url = require('url') // Module provides utilities for URL resolution and parsing (https://nodejs.org/api/url.html)
+const { StringDecoder } = require('string_decoder') // Module provides an API for decoding Buffer objects into strings (https://nodejs.org/api/string_decoder.html)
 
 // Create a server that will reponse all requests with "Hello World"
 const server = http.createServer((req, res) => {
@@ -21,13 +22,25 @@ const server = http.createServer((req, res) => {
     // Get request Headers
     const headers = req.headers
 
-    // Send the response
-    res.end('Hello World!')
+    // Get Payload if there is any
+    const decoder = new StringDecoder('utf-8')
+    let buffer = ''
+    req.on('data', (data) => {
+        buffer += decoder.write(data)
+    })
 
-    // Log the request path
-    console.log(`Request Path: ${trimmedPath} using Method: ${method}`)
-    console.log('Passed query string that was converted to the object: ', queryStringObj)
-    console.log('Request Headers: ', headers)
+    req.on('end', () => {
+        buffer += decoder.end()
+
+        // Send the response
+        res.end('Hello World!')
+
+        // Log the request path
+        console.log(`Request Path: ${trimmedPath} using Method: ${method}`)
+        console.log('Passed query string that was converted to the object: ', queryStringObj)
+        console.log('Request Headers: ', headers)
+        console.log('The payload was: ', buffer)
+    })
 })
 
 // Start the Server, listen on Port 3000
