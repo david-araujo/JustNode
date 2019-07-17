@@ -2,7 +2,6 @@
 const http = require('http')
 const url = require('url') // Module provides utilities for URL resolution and parsing (https://nodejs.org/api/url.html)
 const { StringDecoder } = require('string_decoder') // Module provides an API for decoding Buffer objects into strings (https://nodejs.org/api/string_decoder.html)
-const config = require('./config')
 
 // Create a server that will reponse all requests with "Hello World"
 const server = http.createServer((req, res) => {
@@ -68,8 +67,8 @@ const server = http.createServer((req, res) => {
     })
 })
 
-// Start the Server, listen on Port Defined on config file
-server.listen( config.port, () => console.log(`Server is listening on Port: ${config.port} on ${config.envName} mode.`) )
+// Start the Server, listen on Port 3000
+server.listen( 3000, () => console.log('Server is listening on Port: 3000') )
 
 
 // Define Handlers
