@@ -32,7 +32,7 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
         buffer += decoder.end()
 
-        // Choose the handler this request shold go to. If one is not defined go to 'Not Found' handler.
+        // Choose the handler this request should go to. If one is not defined go to 'Not Found' handler.
         const chosenHandler = typeof(router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound
 
         // Construct the data object to send to the handler
